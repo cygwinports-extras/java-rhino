@@ -1,0 +1,6 @@
+category: Java Interpreters
+requires: jamvm java-jline java-rhino
+sdesc: "JavaScript interpreter for Java"
+ldesc: "Rhino is an open-source implementation of JavaScript written 
+entirely in Java. It is typically embedded into Java applications to 
+provide scripting to end users."

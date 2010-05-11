@@ -1,14 +1,22 @@
-JAVA_CLASSPATH="jsr173_1.0_api.jar:xbean.jar"
+JAVA_CLASSPATH="jline.jar"
 inherit ant
 
+DESCRIPTION="JavaScript interpreter for Java"
 HOMEPAGE="http://www.mozilla.org/rhino/"
 SRC_URI="ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino${PV//./_}.zip"
 SRC_DIR="rhino${PV//./_}"
 
-ANT_BUILD_ARGS="
-	-Djsr173.jar=${JAVA_DIR}/jsr173_1.0_api.jar
-	-Dxbean.jar=${JAVA_DIR}/xbean.jar
-"
+ANT_BUILD_ARGS="-Dno-xmlbeans=1"
 ANT_BUILD_TARGETS="jar javadoc"
 ANT_INSTALL_JARS="build/rhino*/*.jar"
 ANT_INSTALL_JAVADOC="build/rhino*/javadoc"
+
+src_install() {
+	cd ${B}
+	ant_install
+
+	java_wrapper rhino js.jar org.mozilla.javascript.tools.shell.Main
+#	java_wrapper rhino-debugger js.jar org.mozilla.javascript.tools.debugger.Main
+	java_wrapper rhino-idswitch js.jar org.mozilla.javascript.tools.idswitch.Main
+	java_wrapper rhino-jsc js.jar org.mozilla.javascript.tools.jsc.Main
+}
