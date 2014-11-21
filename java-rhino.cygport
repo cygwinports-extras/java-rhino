@@ -2,7 +2,7 @@ JAVA_CLASSPATH="jline.jar"
 inherit ant
 
 NAME="java-rhino"
-VERSION=1.7R2
+VERSION=1.7R4
 RELEASE=1
 CATEGORY="Java Interpreters"
 SUMMARY="JavaScript interpreter for Java"
@@ -10,8 +10,12 @@ DESCRIPTION="Rhino is an open-source implementation of JavaScript written
 entirely in Java. It is typically embedded into Java applications to provide
 scripting to end users."
 HOMEPAGE="http://www.mozilla.org/rhino/"
-SRC_URI="ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino${PV//./_}.zip"
-SRC_DIR="rhino${PV//./_}"
+SRC_URI="https://github.com/downloads/mozilla/rhino/rhino${VERSION//./_}.zip"
+SRC_DIR="rhino${VERSION//./_}"
+
+PKG_NAMES="${NAME} javadoc-rhino"
+java_rhino_CONTENTS="usr/bin/ usr/share/doc/ ${JAVA_DIR#/}"
+javadoc_rhino_CONTENTS=${JAVADOC_DIR#/}
 
 ANT_BUILD_ARGS="-Dno-xmlbeans=1"
 ANT_BUILD_TARGETS="jar javadoc"
